@@ -12,6 +12,7 @@ set(CMAKE_CONFIGURATION_TYPES "Release;RelWithDebInfo" CACHE STRING "" FORCE)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 find_package(Qt6Core REQUIRED)
 find_package(Qt6Widgets REQUIRED)
@@ -31,7 +32,8 @@ file(GLOB_RECURSE SOURCES
     "${INCLUDE_DIR}/*.h"
     "${SOURCE_DIR}/*.cpp"
 )
-
+message(FORMS_DIR="${FORMS_DIR}")
+message(SOURCES="${SOURCES}")
 #=================== SETUP EXECTUABLE ====================#
 # Enable debug logging on RELWITHDEBINFO configuration
 set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS

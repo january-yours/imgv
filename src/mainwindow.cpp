@@ -1,6 +1,13 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "imgv_graphicsItem.h"
 #include "imgv_viewport.h"
+#include <QDir>
+#include <qcontainerfwd.h>
+#include <qlogging.h>
+#include <qpixmap.h>
+#include <QPixmapCache>
+#include <qpixmapcache.h>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent, Qt::FramelessWindowHint)
@@ -16,8 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: rgba(0,0,0,0)");
 
     setCentralWidget(viewport);
-
-
 }
 
 MainWindow::~MainWindow()

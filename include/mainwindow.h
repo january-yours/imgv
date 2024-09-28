@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "imgv_graphicsItem.h"
 #include "imgv_viewport.h"
 #include <QMainWindow>
 
@@ -21,5 +22,6 @@ public:
 private:
     Ui::MainWindow *ui;
     imgv_viewport *viewport;
+    
 };
 #endif // MAINWINDOW_H

@@ -9,7 +9,8 @@
 #include <QGraphicsScene>
 #include <QImage>
 #include <QImageReader>
-
+#include <qgraphicsitem.h>
+#include <QDir>
 
 class imgv_viewport : public QGraphicsView
 {
@@ -18,12 +19,15 @@ public:
     imgv_viewport(QWidget *parent = nullptr);
     //virtual ~imgv_viewport(){};
     void loadfile(QString &filename);
-
+    QString currentDir;
+    unsigned int i = 0;QStringList images;
 private:
     QString basefilename = ":/base";
-    
+    void keyPressEvent(QKeyEvent *event) override;
+
     QGraphicsScene *scene;
 
+    QString currentfilename;
     QImage qimage;
     QPixmap qpixmap;
     imgv_graphicsItem *qpixmapitem;

@@ -1,6 +1,7 @@
 #ifndef IMGV_VIEWPORT_H
 #define IMGV_VIEWPORT_H
 
+#include "imgv_graphicsItem.h"
 #include <QObject>
 #include <QGraphicsView>
 #include <QPixmap>
@@ -25,7 +26,7 @@ private:
 
     QImage qimage;
     QPixmap qpixmap;
-    QGraphicsPixmapItem *qpixmapitem;
+    imgv_graphicsItem *qpixmapitem;
 };
 
 

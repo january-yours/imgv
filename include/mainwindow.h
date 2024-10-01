@@ -4,6 +4,9 @@
 #include "imgv_graphicsItem.h"
 #include "imgv_viewport.h"
 #include <QMainWindow>
+#include <QGridLayout>
+#include <qgridlayout.h>
+#include <QGraphicsGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +25,5 @@ public:
 private:
     Ui::MainWindow *ui;
     imgv_viewport *viewport;
-    
 };
 #endif // MAINWINDOW_H

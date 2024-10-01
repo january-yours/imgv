@@ -4,7 +4,9 @@
 #include "imgv_viewport.h"
 #include <QDir>
 #include <qcontainerfwd.h>
+#include <qgridlayout.h>
 #include <qlogging.h>
+#include <qnamespace.h>
 #include <qpixmap.h>
 #include <QPixmapCache>
 #include <qpixmapcache.h>
@@ -16,13 +18,18 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     viewport = new imgv_viewport();
 
+    
+    
+
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_NoSystemBackground);
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_TransparentForMouseEvents);
-    setStyleSheet("background-color: rgba(0,0,0,0)");
-
+    setStyleSheet("background-color: rgba(10,10,10,0)");
     setCentralWidget(viewport);
+    setStatusBar(nullptr);
+
+
 }
 
 MainWindow::~MainWindow()

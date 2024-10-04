@@ -11,6 +11,7 @@
 #include <QImageReader>
 #include <qgraphicsitem.h>
 #include <QDir>
+#include <qlist.h>
 
 class imgv_viewport : public QGraphicsView
 {
@@ -24,7 +25,12 @@ public:
 
     void zoom(qreal scaleFactor, const QPoint &pos = QPoint(0, 0));
 
+    void testshit();
+    
+    QDir dir;
 
+signals:
+    void iconAdded(QIcon &icon);
 protected:
 
     void wheelEvent(QWheelEvent *event) override;

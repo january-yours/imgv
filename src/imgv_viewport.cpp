@@ -1,5 +1,6 @@
 #include "imgv_viewport.h"
 #include "imgv_graphicsItem.h"
+#include "imgv_previewBar.h"
 #include <QDebug>
 #include <qgraphicsitem.h>
 #include <qlogging.h>
@@ -49,13 +50,33 @@ foreach(QString filename, images) {
             QString absoluteFilePath = directory.absoluteFilePath(filename);
             if(pixmap.load(absoluteFilePath)) {qDebug()<<"\nLoaded"<<filename;
             QPixmapCache::insert(filename, pixmap);
-            }
+                QIcon icon(pixmap);
+           }
         }
         
         //qDebug()<<"\n"<<filename;
     }
     currentfilename = images[i];
 }
+
+void imgv_viewport::testshit(){
+
+        dir.setPath("/home/january/tmp/");
+    foreach(QString filename, images){
+        QPixmap pixmap;
+        if(QPixmapCache::find(filename, &pixmap)){
+        QIcon icon(pixmap);
+            emit iconAdded(icon);
+            qDebug()<<"\nEMIT";
+
+        }
+
+
+
+    }
+}
+
+
 void imgv_viewport::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_L){
             QDir directory(currentDir); 

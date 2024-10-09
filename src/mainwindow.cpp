@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "imgv_fileTree.h"
 #include "imgv_graphicsItem.h"
 #include "imgv_previewBar.h"
 #include "imgv_viewport.h"
@@ -7,7 +8,9 @@
 #include <qassert.h>
 #include <qboxlayout.h>
 #include <qcontainerfwd.h>
+#include <qdebug.h>
 #include <qdockwidget.h>
+#include <qfilesystemmodel.h>
 #include <qgridlayout.h>
 #include <qlabel.h>
 #include <qlogging.h>
@@ -35,26 +38,33 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("background-color: rgba(110,110,110,30)");
     setCentralWidget(viewport);
     setStatusBar(nullptr);
+
    
 
-    QFileSystemModel *model = new QFileSystemModel;
-    model->setRootPath(QDir::currentPath());
-    QTreeView *tree = new QTreeView();
-    tree->setModel(model);
-
     QDockWidget *dockWidget = new QDockWidget();
+    
+    tree = new imgv_fileTree();
+
+    //bool succsess2 = QObject::connect(tree, &imgv_fileTree::expanded, tree, &imgv_fileTree::setCurrentDir);
     dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea);
     dockWidget->setWidget(tree);
+
+
     addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
-        setCorner(Qt::TopLeftCorner, Qt::LeftDockWidgetArea); 
         dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures); 
+
+
+
     imgv_previewBar *toolbar = new imgv_previewBar();
       
     bool succsess = QObject::connect(viewport, &imgv_viewport::iconAdded, toolbar, &imgv_previewBar::addBarIcon);
-    Q_ASSERT(succsess);
-    qDebug()<<"\n SUCC IS: "<<succsess;
 
-    viewport->testshit();
+    bool succsess3 = QObject::connect(viewport, &imgv_viewport::newCache, toolbar, &imgv_previewBar::clearBar);
+    bool succsess2 = QObject::connect(tree, &imgv_fileTree::currentDirChanged, viewport, &imgv_viewport::refreshCache);
+
+    
+
+    //viewport->testshit();
 
     QDockWidget *dock2 = new QDockWidget();
     dock2->setAllowedAreas(Qt::BottomDockWidgetArea);

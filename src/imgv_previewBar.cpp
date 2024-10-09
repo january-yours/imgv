@@ -22,3 +22,13 @@ void imgv_previewBar::addBarIcon(QIcon &icon){
   box->addWidget(label);
 
 }
+void imgv_previewBar::clearBar(){
+  QLayoutItem* item;
+  while ( ( item = box->takeAt( 0 ) ) != NULL )
+  {
+        delete item->widget();
+        delete item;
+        qDebug()<<"\n ITEM CLEARED";
+  }
+
+}

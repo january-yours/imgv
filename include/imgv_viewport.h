@@ -20,17 +20,20 @@ public:
     imgv_viewport(QWidget *parent = nullptr);
     //virtual ~imgv_viewport(){};
     void loadfile(QString &filename);
-    QString currentDir;
-    unsigned int i = 0;QStringList images;
+    QStringList images;
 
     void zoom(qreal scaleFactor, const QPoint &pos = QPoint(0, 0));
 
     void testshit();
+    void refreshCache(QString newDir);
     
     QDir dir;
+    QString currentDir;
+    unsigned int i = 0;
 
 signals:
     void iconAdded(QIcon &icon);
+    void newCache();
 protected:
 
     void wheelEvent(QWheelEvent *event) override;
@@ -49,14 +52,11 @@ private:
 
     
     qreal scaleFactor;
-
     qreal currentScale;
     QPoint lastZoomEventPos;
-
     QTransform absoluteTransform;
     QTransform zoomBasis;
     qreal zoomBasisScaleFactor;
-
 
 };
 

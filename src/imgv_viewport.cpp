@@ -1,4 +1,5 @@
 #include "imgv_viewport.h"
+#include "imgv_fileTree.h"
 #include "imgv_graphicsItem.h"
 #include "imgv_previewBar.h"
 #include <QDebug>
@@ -12,7 +13,8 @@
 #include <qpoint.h>
 #include <qtypes.h>
 #include <QScrollBar>
-
+#include <qwidget.h>
+#include <QGraphicsProxyWidget>
 
 imgv_viewport::imgv_viewport(QWidget *parent):QGraphicsView(parent){
     auto *scene = new QGraphicsScene(0, 0, 0, 0, this);
@@ -39,42 +41,56 @@ setTransformationAnchor(QGraphicsView::NoAnchor);
     zoomBasisScaleFactor = 1.0;
     scene->addItem(qpixmapitem);
 
-QPixmapCache::setCacheLimit(100240);
-    QDir directory("/home/january/tmp/");
+QPixmapCache::setCacheLimit(300240);
 
-    currentDir = directory.path();
-images = directory.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
-foreach(QString filename, images) {
+    dir.setCurrent("/home/january/tmp");
+    currentDir = dir.currentPath();
+
+
+    refreshCache(dir.currentPath());
+    //images = dir.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
+
+    //currentfilename = images[i];
+
+//    QGraphicsProxyWidget *proxy = new QGraphicsProxyWidget();
+//    imgv_fileTree *tree = new imgv_fileTree();
+//    proxy = scene->addWidget(tree);
+
+
+
+
+
+}
+void imgv_viewport::refreshCache(QString newDir){
+    QPixmapCache::clear();
+    images.clear();
+    emit newCache();
+    dir.setCurrent(newDir);
+                qDebug()<<"\nNEW DIR FOR ENTRY LIST IS: "<<dir.currentPath();
+    images = dir.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
+    
+    foreach(QString filename, images) {qDebug()<<"entry list item!!!: "<< filename;};
+
+
+    foreach(QString filename, images) {
         QPixmap pixmap;
         if(!QPixmapCache::find(filename, &pixmap)){
-            QString absoluteFilePath = directory.absoluteFilePath(filename);
-            if(pixmap.load(absoluteFilePath)) {qDebug()<<"\nLoaded"<<filename;
-            QPixmapCache::insert(filename, pixmap);
+            QString absoluteFilePath = dir.absoluteFilePath(filename);
+            if(pixmap.load(absoluteFilePath)) {
+                qDebug()<<"\nLoaded"<<filename;
+                QPixmapCache::insert(filename, pixmap);
                 QIcon icon(pixmap);
-           }
+                emit iconAdded(icon);
+                
+                qDebug()<<"\nEMIT NEW ICON";
+            } else {qDebug()<<"\n OBOSRALSA LOAD PIXMAPA";};
         }
         
         //qDebug()<<"\n"<<filename;
     }
-    currentfilename = images[i];
+
 }
 
-void imgv_viewport::testshit(){
-
-        dir.setPath("/home/january/tmp/");
-    foreach(QString filename, images){
-        QPixmap pixmap;
-        if(QPixmapCache::find(filename, &pixmap)){
-        QIcon icon(pixmap);
-            emit iconAdded(icon);
-            qDebug()<<"\nEMIT";
-
-        }
-
-
-
-    }
-}
 
 
 void imgv_viewport::keyPressEvent(QKeyEvent *event){

@@ -19,6 +19,7 @@ public:
 
 public slots:
   void addBarIcon(QIcon &icon);
+  void clearBar();
 private:
   QHBoxLayout *box;
   QList<QLabel> list;

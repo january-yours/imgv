@@ -65,11 +65,11 @@ void imgv_viewport::refreshCache(QString newDir){
     QPixmapCache::clear();
     images.clear();
     emit newCache();
-    dir.setCurrent(newDir);
+    dir.setPath(newDir);
                 qDebug()<<"\nNEW DIR FOR ENTRY LIST IS: "<<dir.currentPath();
     images = dir.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
     
-    foreach(QString filename, images) {qDebug()<<"entry list item!!!: "<< filename;};
+    foreach(QString filename, images) {qDebug()<<"entry list item!!!: "<< dir.absoluteFilePath(filename);};
 
 
     foreach(QString filename, images) {
@@ -83,7 +83,7 @@ void imgv_viewport::refreshCache(QString newDir){
                 emit iconAdded(icon);
                 
                 qDebug()<<"\nEMIT NEW ICON";
-            } else {qDebug()<<"\n OBOSRALSA LOAD PIXMAPA";};
+            } else {qDebug()<<"\n OBOSRALSA LOAD PIXMAPA: "<< absoluteFilePath;};
         }
         
         //qDebug()<<"\n"<<filename;

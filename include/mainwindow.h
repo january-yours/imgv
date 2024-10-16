@@ -2,12 +2,9 @@
 #define MAINWINDOW_H
 
 #include "imgv_fileTree.h"
-#include "imgv_graphicsItem.h"
+#include "imgv_previewBar.h"
 #include "imgv_viewport.h"
 #include <QMainWindow>
-#include <QGridLayout>
-#include <qgridlayout.h>
-#include <QGraphicsGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,8 +21,11 @@ public:
     ~MainWindow();
 
 private:
+    void resizeEvent(QResizeEvent *event) override;
+
     Ui::MainWindow *ui;
     imgv_viewport *viewport;
     imgv_fileTree *tree;
+    imgv_previewBar *toolbar;
 };
 #endif // MAINWINDOW_H

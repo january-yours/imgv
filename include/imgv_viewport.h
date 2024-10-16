@@ -19,7 +19,6 @@ class imgv_viewport : public QGraphicsView
 public:
     imgv_viewport(QWidget *parent = nullptr);
     //virtual ~imgv_viewport(){};
-    void loadfile(QString &filename);
     QStringList images;
 
     void zoom(qreal scaleFactor, const QPoint &pos = QPoint(0, 0));

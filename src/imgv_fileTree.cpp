@@ -30,19 +30,14 @@ imgv_fileTree::imgv_fileTree(QWidget *parent):QTreeView(parent){
     tree->hideColumn(3);
     tree->hideColumn(4);
     tree->setAnimated(true);
-    bool succsess2 = QObject::connect(tree, &QTreeView::expanded, this, &imgv_fileTree::setCurrentDir);
-    
-    qDebug()<<"\nConnect is: "<<succsess2;
+
+    QObject::connect(tree, &QTreeView::expanded, this, &imgv_fileTree::setCurrentDir);
   
     box->addWidget(tree);
 
 }
 
 void imgv_fileTree::setCurrentDir(const QModelIndex &index){
-
     currentDirectory.setCurrent(model->filePath(index));
-//qDebug() << "Item expanded: " << model->filePath(index);
-
-qDebug()<<"\n WOWZERS! CURRENT DIR IS: "<< currentDirectory.currentPath();
     emit currentDirChanged(currentDirectory.currentPath());    
 }

@@ -9,7 +9,6 @@ imgv_graphicsItem::imgv_graphicsItem(QGraphicsPixmapItem *parent):QGraphicsPixma
 void imgv_graphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event){
   //  this->setPos(mapToScene(event->pos()));
     
-    qDebug()<<"mouse event";
 }
 imgv_graphicsItem::~imgv_graphicsItem(){}
 

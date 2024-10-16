@@ -5,7 +5,6 @@
 #include <QGraphicsView>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
-#include <QImage>
 #include <qgraphicsitem.h>
 #include <QGraphicsSceneMouseEvent>
 #include <qgraphicssceneevent.h>

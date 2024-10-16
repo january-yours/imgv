@@ -1,8 +1,6 @@
 #ifndef IMGV_PREVIEWBAR_H
 #define IMGV_PREVIEWBAR_H
 
-
-
 #include <qboxlayout.h>
 #include <qpixmap.h>
 #include <qtmetamacros.h>

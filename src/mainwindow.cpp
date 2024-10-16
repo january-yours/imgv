@@ -11,6 +11,7 @@
 #include <qdebug.h>
 #include <qdockwidget.h>
 #include <qfilesystemmodel.h>
+#include <qgraphicslayoutitem.h>
 #include <qgridlayout.h>
 #include <qlabel.h>
 #include <qlogging.h>
@@ -40,37 +41,18 @@ MainWindow::MainWindow(QWidget *parent)
     setStatusBar(nullptr);
 
    
+    tree = new imgv_fileTree(this);
+    toolbar = new imgv_previewBar(this);
 
-    QDockWidget *dockWidget = new QDockWidget();
-    
-    tree = new imgv_fileTree();
-
-    //bool succsess2 = QObject::connect(tree, &imgv_fileTree::expanded, tree, &imgv_fileTree::setCurrentDir);
-    dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea);
-    dockWidget->setWidget(tree);
-
-
-    addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
-        dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures); 
-
-
-
-    imgv_previewBar *toolbar = new imgv_previewBar();
-      
     bool succsess = QObject::connect(viewport, &imgv_viewport::iconAdded, toolbar, &imgv_previewBar::addBarIcon);
-
     bool succsess3 = QObject::connect(viewport, &imgv_viewport::newCache, toolbar, &imgv_previewBar::clearBar);
     bool succsess2 = QObject::connect(tree, &imgv_fileTree::currentDirChanged, viewport, &imgv_viewport::refreshCache);
 
-    
 
-    //viewport->testshit();
-
-    QDockWidget *dock2 = new QDockWidget();
-    dock2->setAllowedAreas(Qt::BottomDockWidgetArea);
-    dock2->setWidget(toolbar);
-        dockWidget->setFeatures(QDockWidget::NoDockWidgetFeatures); 
-    addDockWidget(Qt::BottomDockWidgetArea, dock2);
+}
+void MainWindow::resizeEvent(QResizeEvent* event){
+    tree->setGeometry({0,0,250,350});
+    toolbar->setGeometry({0, this->height()-50, this->width(), 50});
 }
 
 MainWindow::~MainWindow()

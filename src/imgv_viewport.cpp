@@ -27,7 +27,8 @@ imgv_viewport::imgv_viewport(QWidget *parent):QGraphicsView(parent){
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 setTransformationAnchor(QGraphicsView::NoAnchor);
-    loadfile(basefilename);
+    qpixmap.load(basefilename);
+
     qpixmapitem = new imgv_graphicsItem();
     qpixmapitem->setPixmap(qpixmap);
     qpixmapitem->setFlag(QGraphicsItem::ItemIsMovable);
@@ -48,16 +49,6 @@ QPixmapCache::setCacheLimit(300240);
 
 
     refreshCache(dir.currentPath());
-    //images = dir.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
-
-    //currentfilename = images[i];
-
-//    QGraphicsProxyWidget *proxy = new QGraphicsProxyWidget();
-//    imgv_fileTree *tree = new imgv_fileTree();
-//    proxy = scene->addWidget(tree);
-
-
-
 
 
 }
@@ -97,7 +88,7 @@ void imgv_viewport::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_L){
             QDir directory(currentDir); 
             QString absoluteFilePath = directory.absoluteFilePath(currentfilename);
-            loadfile (absoluteFilePath);i++;
+            qpixmap.load(absoluteFilePath);i++;
            
             currentfilename = images[i];
             qpixmapitem->setPixmap(qpixmap);
@@ -157,12 +148,3 @@ void imgv_viewport::wheelEvent(QWheelEvent *event){
 
 
 
-void imgv_viewport::loadfile(QString &filename){
-    
-    qpixmap.load(filename);
-    if (!qpixmap) 
-        qDebug()<<"\nuebok";
-    else 
-        qDebug()<<"\n"<<filename;
-
-}

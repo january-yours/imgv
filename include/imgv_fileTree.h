@@ -7,9 +7,7 @@
 #include <qobject.h>
 #include <qtmetamacros.h>
 #include <qtreeview.h>
-#include <qtreewidget.h>
 #include <qwidget.h>
-#include <QTreeWidget>
 
 class imgv_fileTree: public QTreeView {
 Q_OBJECT
@@ -23,9 +21,7 @@ public slots:
 signals:
   void currentDirChanged(QString currentDir);
 
-
 private:
-  
   QFileSystemModel *model;
   QTreeView *tree;
   QVBoxLayout *box;

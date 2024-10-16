@@ -7,6 +7,6 @@ Hello! This is my pet project, which is basically just a simple image viewer mad
 - [ ] Mime types, since I've only added jpg while testing
 - [ ] Cache navigation and dynamic cache size allocation
 - [ ] Preview icons should be clickable and animated
-- [ ] Put bar and tree widgets to viewport trough proxy
+- [x] Put bar and tree widgets to mainwindow
 - [ ] Make some keymaps
 - [ ] Add small helper widget with current keymaps, bind to "?"

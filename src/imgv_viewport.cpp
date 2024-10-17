@@ -55,12 +55,17 @@ QPixmapCache::setCacheLimit(300240);
 void imgv_viewport::refreshCache(QString newDir){
     QPixmapCache::clear();
     images.clear();
+    
     emit newCache();
     dir.setPath(newDir);
-                qDebug()<<"\nNEW DIR FOR ENTRY LIST IS: "<<dir.currentPath();
+                /*qDebug()<<"\nNEW DIR FOR ENTRY LIST IS: "<<dir.currentPath();*/
     images = dir.entryList(QStringList() << "*.jpg" << "*.JPG",QDir::Files);
+    qDebug()<<"IMAGES COUNT: "<<images.count();
+    if(!images.count()){ qDebug()<<"\nEMPTY FOLDER"; nothingToShow = 1;} else{ nothingToShow = 0;
     
-    foreach(QString filename, images) {qDebug()<<"entry list item!!!: "<< dir.absoluteFilePath(filename);};
+        currentfilename = images[0];
+    /*foreach(QString filename, images) {qDebug()<<"entry list item!!!: "<< dir.absoluteFilePath(filename);};*/
+        for(int k = 0; k < images.count(); k++) qDebug()<<"Image i="<<k<<" is "<<images[k];
 
 
     foreach(QString filename, images) {
@@ -68,33 +73,58 @@ void imgv_viewport::refreshCache(QString newDir){
         if(!QPixmapCache::find(filename, &pixmap)){
             QString absoluteFilePath = dir.absoluteFilePath(filename);
             if(pixmap.load(absoluteFilePath)) {
-                qDebug()<<"\nLoaded"<<filename;
+                qDebug()<<"Loaded"<<filename;
                 QPixmapCache::insert(filename, pixmap);
                 QIcon icon(pixmap);
                 emit iconAdded(icon);
                 
-                qDebug()<<"\nEMIT NEW ICON";
+                /*qDebug()<<"\nEMIT NEW ICON";*/
             } else {qDebug()<<"\n OBOSRALSA LOAD PIXMAPA: "<< absoluteFilePath;};
         }
         
         //qDebug()<<"\n"<<filename;
     }
 
+    }
+
 }
 
+void imgv_viewport::prevImage(){
+ if(nothingToShow) return;
 
+    if(i>0) i--; else i=images.count()-1;
+
+    currentfilename = images[i];
+    qpixmap.load(dir.absoluteFilePath(currentfilename));
+    qpixmapitem->setPixmap(qpixmap);
+    qpixmapitem->sceneBoundingRect();
+    centerOn(qpixmapitem);
+
+}
+void imgv_viewport::nextImage(){
+ if(nothingToShow) return;
+
+    if(i<images.count()-1) i++; else i=0;
+
+    currentfilename = images[i];
+    qpixmap.load(dir.absoluteFilePath(currentfilename));
+    qpixmapitem->setPixmap(qpixmap);
+    qpixmapitem->sceneBoundingRect();
+    centerOn(qpixmapitem);
+
+}
 
 void imgv_viewport::keyPressEvent(QKeyEvent *event){
     if (event->key() == Qt::Key_L){
-            QDir directory(currentDir); 
-            QString absoluteFilePath = directory.absoluteFilePath(currentfilename);
-            qpixmap.load(absoluteFilePath);i++;
-           
-            currentfilename = images[i];
-            qpixmapitem->setPixmap(qpixmap);
-            qpixmapitem->sceneBoundingRect();
-            centerOn(qpixmapitem);
+        qDebug()<<"Current filename is: "<<currentfilename;
+        nextImage();
+        }
+    else if(event->key() == Qt::Key_H){
+        qDebug()<<"Current filename is: "<<currentfilename;
+        prevImage();
     }
+        
+
 }
 
 void imgv_viewport::zoom(qreal scaleFactor, const QPoint &pos){

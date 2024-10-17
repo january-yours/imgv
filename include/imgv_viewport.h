@@ -42,6 +42,9 @@ protected:
 private:
     QString basefilename = ":/base";
     void keyPressEvent(QKeyEvent *event) override;
+    void nextImage();
+    void prevImage();
+    bool nothingToShow;
 
     QGraphicsScene *scene;
 

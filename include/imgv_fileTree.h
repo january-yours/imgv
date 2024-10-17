@@ -9,32 +9,25 @@
 #include <qtreeview.h>
 #include <qwidget.h>
 
-class imgv_fileTree: public QTreeView {
-Q_OBJECT
+class imgv_fileTree : public QTreeView
+{
+  Q_OBJECT
 
 public:
-  imgv_fileTree(QWidget *parent = nullptr);
+  imgv_fileTree (QWidget *parent = nullptr);
 
 public slots:
-  void setCurrentDir(const QModelIndex &index);
+  void setCurrentDir (const QModelIndex &index);
+  void hideToggle ();
 
 signals:
-  void currentDirChanged(QString currentDir);
+  void currentDirChanged (QString currentDir);
 
 private:
   QFileSystemModel *model;
   QTreeView *tree;
   QVBoxLayout *box;
   QDir currentDirectory;
-
 };
 
-
-
-
-
-
-
-
-
-#endif //IMGV_FILETREE_H
+#endif // IMGV_FILETREE_H

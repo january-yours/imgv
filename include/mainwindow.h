@@ -7,25 +7,26 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
+  Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+  MainWindow (QWidget *parent = nullptr);
+  ~MainWindow ();
 
 private:
-    void resizeEvent(QResizeEvent *event) override;
+  void resizeEvent (QResizeEvent *event) override;
 
-    Ui::MainWindow *ui;
-    imgv_viewport *viewport;
-    imgv_fileTree *tree;
-    imgv_previewBar *toolbar;
+  Ui::MainWindow *ui;
+  imgv_viewport *viewport;
+  imgv_fileTree *tree;
+  imgv_previewBar *toolbar;
 };
 #endif // MAINWINDOW_H

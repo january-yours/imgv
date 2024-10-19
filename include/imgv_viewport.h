@@ -34,6 +34,7 @@ signals:
   void iconAdded (QIcon &icon);
   void newCache ();
   void treeToggle ();
+  void keyPressed (QKeyEvent *);
 
 protected:
   void wheelEvent (QWheelEvent *event) override;

@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include "imgv_fileTree.h"
-#include "imgv_graphicsItem.h"
-#include "imgv_keyFilter.h"
 #include "imgv_previewBar.h"
 #include "imgv_viewport.h"
 #include <QDir>
@@ -51,9 +49,8 @@ MainWindow::MainWindow (QWidget *parent)
                     &imgv_previewBar::clearBar);
   QObject::connect (tree, &imgv_fileTree::currentDirChanged, viewport,
                     &imgv_viewport::refreshCache);
-  imgv_keyFilter *filter = new imgv_keyFilter ("main window", this);
-  tree->installEventFilter (filter);
-  viewport->installEventFilter (filter);
+  QObject::connect (viewport, &imgv_viewport::keyPressed, tree,
+                    &imgv_fileTree::keyPressEvent);
 }
 void
 MainWindow::resizeEvent (QResizeEvent *event)

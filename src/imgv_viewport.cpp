@@ -150,7 +150,7 @@ imgv_viewport::keyPressEvent (QKeyEvent *event)
   else if ((event->key () == Qt::Key_J) || (event->key () == Qt::Key_K)
            || (event->key () == Qt::Key_Space))
     {
-      qDebug () << "local imgv key event";
+      emit keyPressed (event);
     }
 }
 

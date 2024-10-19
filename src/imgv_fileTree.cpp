@@ -15,10 +15,11 @@ imgv_fileTree::imgv_fileTree (QWidget *parent) : QTreeView (parent)
   box = new QVBoxLayout (this);
 
   setStyleSheet ("background-color: rgba(70,70,70,80)");
+  setFocusPolicy (Qt::NoFocus);
   model = new QFileSystemModel ();
   model->setRootPath (QDir::homePath ());
-  model->setFilter (QDir::AllDirs | QDir::Files | QDir::NoDotAndDotDot);
-  model->setNameFilters (QStringList () << "*.jpg");
+  model->setFilter (QDir::AllDirs | QDir::NoDotAndDotDot);
+  /*model->setNameFilters (QStringList () << "*.jpg");*/
 
   tree = new QTreeView ();
   tree->setModel (model);
@@ -49,8 +50,41 @@ imgv_fileTree::hideToggle ()
 void
 imgv_fileTree::keyPressEvent (QKeyEvent *event)
 {
-  if (event->key () == Qt::Key_Space)
-    qDebug () << "SPACE KEY HANDLED";
+  if (event->key () == Qt::Key_J)
+    {
+      QModelIndex currentIndex = tree->currentIndex ();
+      QModelIndex nextIndex = tree->indexBelow (currentIndex);
+      if (nextIndex.isValid ())
+        {
+          tree->setCurrentIndex (nextIndex);
+        }
+    }
+
+  else if (event->key () == Qt::Key_K)
+    {
+      QModelIndex currentIndex = tree->currentIndex ();
+      QModelIndex nextIndex = tree->indexAbove (currentIndex);
+      if (nextIndex.isValid ())
+        {
+          tree->setCurrentIndex (nextIndex);
+        }
+    }
+  else if (event->key () == Qt::Key_Space)
+    {
+      QModelIndex currentIndex = tree->currentIndex ();
+      if (tree->isExpanded (currentIndex))
+        {
+          tree->collapse (currentIndex);
+        }
+      else
+        {
+          tree->expand (currentIndex);
+        }
+    }
+  else
+    {
+      QTreeView::keyPressEvent (event);
+    }
 }
 
 void

@@ -20,11 +20,11 @@ public slots:
   void setCurrentDir (const QModelIndex &index);
   void hideToggle ();
 
+  void keyPressEvent (QKeyEvent *event) override;
 signals:
   void currentDirChanged (QString currentDir);
 
 private:
-  void keyPressEvent (QKeyEvent *event) override;
   QFileSystemModel *model;
   QTreeView *tree;
   QVBoxLayout *box;

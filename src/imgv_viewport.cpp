@@ -76,27 +76,22 @@ imgv_viewport::refreshCache (QString newDir)
       foreach (QString filename, images)
         {
           QPixmap pixmap;
-          if (!QPixmapCache::find (filename, &pixmap))
+          QString absoluteFilePath = dir.absoluteFilePath (filename);
+          if (pixmap.load (absoluteFilePath))
             {
-              QString absoluteFilePath = dir.absoluteFilePath (filename);
-              if (pixmap.load (absoluteFilePath))
-                {
-                  qDebug () << "Loaded" << filename;
-                  QPixmapCache::insert (filename, pixmap);
-                  QIcon icon (pixmap);
-                  emit iconAdded (icon);
+              qDebug () << "Loaded" << filename;
+              QIcon icon (pixmap);
+              emit iconAdded (icon);
 
-                  /*qDebug()<<"\nEMIT NEW ICON";*/
-                }
-              else
-                {
-                  qDebug ()
-                      << "\n OBOSRALSA LOAD PIXMAPA: " << absoluteFilePath;
-                };
+              /*qDebug()<<"\nEMIT NEW ICON";*/
             }
-
-          // qDebug()<<"\n"<<filename;
+          else
+            {
+              qDebug () << "\n OBOSRALSA LOAD PIXMAPA: " << absoluteFilePath;
+            };
         }
+
+      // qDebug()<<"\n"<<filename;
     }
 }
 

@@ -4,6 +4,7 @@
 #include <qboxlayout.h>
 #include <qcontainerfwd.h>
 #include <qfilesystemmodel.h>
+#include <qnamespace.h>
 #include <qtreeview.h>
 #include <qtreewidget.h>
 #include <qwidget.h>
@@ -45,6 +46,13 @@ imgv_fileTree::hideToggle ()
   else
     this->show ();
 }
+void
+imgv_fileTree::keyPressEvent (QKeyEvent *event)
+{
+  if (event->key () == Qt::Key_Space)
+    qDebug () << "SPACE KEY HANDLED";
+}
+
 void
 imgv_fileTree::setCurrentDir (const QModelIndex &index)
 {

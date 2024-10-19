@@ -24,6 +24,7 @@ signals:
   void currentDirChanged (QString currentDir);
 
 private:
+  void keyPressEvent (QKeyEvent *event) override;
   QFileSystemModel *model;
   QTreeView *tree;
   QVBoxLayout *box;
